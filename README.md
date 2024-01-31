@@ -47,3 +47,7 @@ This installs the necessary dependencies for the project.
 ## JSX
 
 - javascript extension
+
+## State
+
+- State is a value that changes when application runs.
