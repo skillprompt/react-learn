@@ -1,4 +1,5 @@
 import { useState } from "react";
+import styles from "./Counter.module.css";
 
 /**
  * Quiz between two teams
@@ -14,6 +15,8 @@ export function Score(props: {
   teamName: string;
   counterName: "Score" | "Goals";
 }) {
+  console.log("styles", styles);
+
   const [count, setCount] = useState(10);
 
   const increaseCountBy1 = () => {
@@ -29,12 +32,12 @@ export function Score(props: {
   };
 
   return (
-    <div>
+    <div className={styles.counter_container}>
       <h1>
         {props.teamName}: {props.counterName}
       </h1>
 
-      <div>
+      <div className={styles.count_container}>
         <p>{count}</p>
       </div>
 
