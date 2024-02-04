@@ -4,6 +4,7 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import { Score } from "./components/Counter";
 import styles from "./components/main.module.css";
+import { UserAge } from "./hooks/state";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -22,6 +23,8 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       <Score teamName="A" counterName="Score" />
       <Score teamName="B" counterName="Score" />
     </div>
+
+    <UserAge />
 
     {/* <h2>Football</h2>
     <Score teamName="Liverpool" counterName="Goals" />
