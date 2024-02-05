@@ -15,8 +15,6 @@ export function Score(props: {
   teamName: string;
   counterName: "Score" | "Goals";
 }) {
-  console.log("styles", styles);
-
   const [count, setCount] = useState(10);
 
   const increaseCountBy1 = () => {

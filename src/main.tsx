@@ -5,9 +5,12 @@ import "./index.css";
 import { Score } from "./components/Counter";
 import styles from "./components/main.module.css";
 import { UserAge } from "./hooks/state";
+import { Effect } from "./hooks/effect";
+import { Data } from "./hooks/data";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
+  // <React.StrictMode>
+  <>
     {/* <App /> */}
     <h2
       style={{
@@ -26,8 +29,13 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
 
     <UserAge />
 
+    <Effect />
+
+    <Data />
+
     {/* <h2>Football</h2>
     <Score teamName="Liverpool" counterName="Goals" />
     <Score teamName="Chelsea" counterName="Goals" /> */}
-  </React.StrictMode>
+    {/* // </React.StrictMode> */}
+  </>
 );
