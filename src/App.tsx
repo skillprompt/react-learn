@@ -1,33 +1,43 @@
 import "./App.css";
-import { Fragment } from "react";
+import { Navbar } from "./components/Navbar";
 
 function App() {
-  const age = 10;
-  const studentAge = `${age}`;
+  const pathname = location.pathname;
 
-  const students = [];
+  if (pathname === "/posts") {
+    return (
+      <div>
+        <Navbar />
+        <h2>show list of posts</h2>
+      </div>
+    );
+  }
+
+  // e.g. "/posts/1/edit"
+  if (pathname.includes("/edit")) {
+    return (
+      <div>
+        <h2>Show a form to edit the post</h2>
+        <Navbar />
+      </div>
+    );
+  }
+
+  // e.g. "/posts/1" or "/posts/5"
+  if (pathname.includes("/posts/")) {
+    return (
+      <div>
+        <Navbar />
+        <h2>Show the detail post along with its comments</h2>
+      </div>
+    );
+  }
 
   return (
-    <Fragment>
-      <div className="app-1">
-        <p>This is my first app.</p>
-      </div>
-      <div className="app-2">
-        <p>{studentAge}</p>
-
-        <p>{students.length ? "hello students" : "no students"} </p>
-      </div>
-
-      <label htmlFor="">
-        <input
-          type="text"
-          style={{
-            backgroundColor: "red",
-            color: "blue",
-          }}
-        />
-      </label>
-    </Fragment>
+    <div>
+      <Navbar />
+      <h2>Component not found</h2>
+    </div>
   );
 }
 
