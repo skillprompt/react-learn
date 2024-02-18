@@ -1,44 +1,64 @@
 import "./App.css";
 import { Navbar } from "./components/Navbar";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Outlet,
+  Link,
+} from "react-router-dom";
+import { posts } from "./data/posts";
+import { PostDetail } from "./components/PostDetail";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: (
+      <div>
+        <Navbar />
+        <Outlet />
+      </div>
+    ),
+    children: [
+      {
+        path: "/",
+        element: (
+          <div>
+            <h2>Home Page</h2>
+          </div>
+        ),
+      },
+      {
+        path: "/posts",
+        element: (
+          <div>
+            <h2>show list of posts</h2>
+            <ul>
+              {posts.map((post) => {
+                return (
+                  <li key={post.id}>
+                    <Link to={`/posts/${post.id}`}>{post.title}</Link>
+                  </li>
+                );
+              })}
+            </ul>
+
+            <div className="post-detail-container">
+              <Outlet />
+            </div>
+          </div>
+        ),
+      },
+    ],
+  },
+
+  {
+    path: "/posts/:postId",
+    element: <PostDetail />,
+  },
+]);
 
 function App() {
-  const pathname = location.pathname;
-
-  if (pathname === "/posts") {
-    return (
-      <div>
-        <Navbar />
-        <h2>show list of posts</h2>
-      </div>
-    );
-  }
-
-  // e.g. "/posts/1/edit"
-  if (pathname.includes("/edit")) {
-    return (
-      <div>
-        <h2>Show a form to edit the post</h2>
-        <Navbar />
-      </div>
-    );
-  }
-
-  // e.g. "/posts/1" or "/posts/5"
-  if (pathname.includes("/posts/")) {
-    return (
-      <div>
-        <Navbar />
-        <h2>Show the detail post along with its comments</h2>
-      </div>
-    );
-  }
-
-  return (
-    <div>
-      <Navbar />
-      <h2>Component not found</h2>
-    </div>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;

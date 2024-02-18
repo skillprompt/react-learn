@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export function Navbar() {
   return (
     <div
@@ -6,51 +8,24 @@ export function Navbar() {
         gap: "20px",
       }}
     >
-      <a
+      <Link
         style={{
           border: "1px solid red",
           padding: "5px",
         }}
-        href="/"
+        to="/"
       >
         Home
-      </a>
-      <a
+      </Link>
+      <Link
         style={{
           border: "1px solid red",
           padding: "5px",
         }}
-        href="/posts"
+        to="/posts"
       >
         Posts
-      </a>
-      <a
-        style={{
-          border: "1px solid red",
-          padding: "5px",
-        }}
-        href="/posts/1"
-      >
-        Post number 1 detail
-      </a>
-      <a
-        style={{
-          border: "1px solid red",
-          padding: "5px",
-        }}
-        href="/posts/1/edit"
-      >
-        Post number 1 edit
-      </a>
-      <a
-        style={{
-          border: "1px solid red",
-          padding: "5px",
-        }}
-        href="/does-not-exist"
-      >
-        Path not exist
-      </a>
+      </Link>
     </div>
   );
 }
