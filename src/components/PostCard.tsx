@@ -1,15 +1,27 @@
-export function PostCard(props: {
-  title: string;
-  description: string;
-  createdBy: string;
-  date: Date;
-}) {
+export function PostCard(props: { title: string; description: string }) {
   return (
-    <div>
-      <h2>{props.title}</h2>
-      <p>{props.description}</p>
-      <p>Created By: {props.createdBy}</p>
-      <p>Date: {props.date.toISOString()}</p>
+    <div
+      style={{
+        border: "2px solid #eee",
+        borderRadius: "10px",
+        padding: "10px",
+        margin: "10px 0",
+      }}
+    >
+      <h2
+        style={{
+          color: "#aaa",
+        }}
+      >
+        {props.title}
+      </h2>
+      <p
+        style={{
+          color: "#000",
+        }}
+      >
+        {props.description}
+      </p>
     </div>
   );
 }
