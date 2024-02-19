@@ -1,31 +1,29 @@
-import { Link } from "react-router-dom";
-
 export function Navbar() {
   return (
     <div
       style={{
         display: "flex",
-        gap: "20px",
+        justifyContent: "space-between",
+        marginBottom: "10px",
       }}
     >
-      <Link
+      <img
         style={{
-          border: "1px solid red",
+          width: "150px",
+        }}
+        src="/images/logo.png"
+        alt="logo"
+      />
+
+      {/* input box for search */}
+      <input
+        style={{
           padding: "5px",
         }}
-        to="/"
-      >
-        Home
-      </Link>
-      <Link
-        style={{
-          border: "1px solid red",
-          padding: "5px",
-        }}
-        to="/posts"
-      >
-        Posts
-      </Link>
+        placeholder="search posts"
+        type="text"
+        name="search"
+      />
     </div>
   );
 }
