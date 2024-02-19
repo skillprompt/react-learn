@@ -1,23 +1,18 @@
 import { useEffect, useState } from "react";
 import { PostCard } from "./PostCard";
 import { TPost } from "../types";
+import { fetchPosts } from "../data/fetch-posts";
 
 export function PostList() {
   const [posts, setPosts] = useState<TPost[]>([]);
 
   useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/posts", {
-      method: "GET",
-    })
-      .then((data) => {
-        return data.json();
-      })
-      .then((jsonData: TPost[]) => {
-        setPosts(jsonData);
-      })
-      .catch((error) => {
-        console.log("Error when fetching data from server", error);
-      });
+    async function getPosts() {
+      const posts = await fetchPosts();
+      setPosts(posts);
+    }
+
+    getPosts();
   }, []);
 
   return (
