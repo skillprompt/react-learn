@@ -29,6 +29,8 @@ export function PostList() {
             postId={post.id}
             title={post.title}
             description={post.body}
+            posts={posts}
+            setPosts={setPosts}
           />
         );
       })}

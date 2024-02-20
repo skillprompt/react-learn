@@ -1,14 +1,38 @@
+import React, { useState } from "react";
 import { MdDelete } from "react-icons/md";
 import { deletePost } from "../data/delete-post";
+import { TPost } from "../types";
 
 export function PostCard(props: {
   title: string;
   description: string;
   postId: number;
+  setPosts: React.Dispatch<React.SetStateAction<TPost[]>>;
+  posts: TPost[];
 }) {
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  // TODO: make an state for error message
+
   const handlePostDelete = async (postId: number) => {
+    // set the isDeleting state to true
+    setIsDeleting(true);
+
     // make api call to the backend to delete the post
-    await deletePost(postId);
+    try {
+      await deletePost(postId);
+
+      // remove the post from the UI
+      const filteredPosts = props.posts.filter((post) => post.id !== postId);
+      props.setPosts(filteredPosts);
+    } catch (error) {
+      console.log("Error when deleting the post with id:", postId, error);
+
+      // TODO: set the message that is shown to the user
+    }
+
+    // set the isDeleting state to false
+    setIsDeleting(false);
   };
 
   return (
@@ -34,14 +58,22 @@ export function PostCard(props: {
       >
         {props.description}
       </p>
-      <button
-        onClick={() => {
-          handlePostDelete(props.postId);
-        }}
-      >
-        <MdDelete height={24} width={24} fill="red" />
-        Delete
-      </button>
+
+      {isDeleting ? (
+        <p>Loading...</p>
+      ) : (
+        <button
+          onClick={() => {
+            handlePostDelete(props.postId);
+          }}
+        >
+          <MdDelete height={24} width={24} fill="red" />
+          Delete
+        </button>
+      )}
+
+      {/* TODO: show the error message here and make it red */}
+      <p>Show error message here</p>
     </div>
   );
 }

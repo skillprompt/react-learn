@@ -1,4 +1,8 @@
+import { simulateError } from "../utils";
+
 export async function deletePost(postId: number) {
+  simulateError("Failed to delete the post");
+
   const response = await fetch(
     `https://jsonplaceholder.typicode.com/posts/${postId}`,
     {
