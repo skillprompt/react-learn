@@ -3,6 +3,7 @@ import { Navbar } from "./components/Navbar";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import { PostDetail } from "./components/PostDetail";
 import { PostList } from "./components/PostList";
+import { TodosList } from "./components/TodosList";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
             <PostList />
           </div>
         ),
+      },
+      {
+        path: "/todos",
+        element: <TodosList />,
       },
     ],
   },
