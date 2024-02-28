@@ -3,6 +3,7 @@ import { PostCard } from "./PostCard";
 import { TPost } from "../types";
 import { fetchPosts } from "../data/fetch-posts";
 import styles from "./PostList.module.css";
+import { GlobalTextPostList } from "./GlobalTextPostList";
 
 const DEFAULT_NUMBER_OF_POSTS = 5;
 
@@ -116,6 +117,8 @@ export function PostList() {
           </select>
         </div>
       </div>
+
+      <GlobalTextPostList />
     </div>
   );
 }
