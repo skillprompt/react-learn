@@ -1,0 +1,7 @@
+.activeButton {
+  background: green;
+}
+
+.inactiveButton {
+  background: transparent;
+}
