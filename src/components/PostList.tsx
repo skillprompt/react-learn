@@ -1,21 +1,17 @@
 import { useEffect, useState } from "react";
 import { PostCard } from "./PostCard";
-import { TPost } from "../types";
 import { fetchPosts } from "../data/fetch-posts";
 import styles from "./PostList.module.css";
 import { GlobalTextPostList } from "./GlobalTextPostList";
-
-const DEFAULT_NUMBER_OF_POSTS = 5;
+import { PerPageSelector } from "./PerPageSelector";
+import { usePaginationPostCtx } from "../store/pagination-posts";
 
 export function PostList() {
-  const [posts, setPosts] = useState<TPost[]>([]);
+  const { page, setPage, posts, perPage, setPosts } = usePaginationPostCtx();
+
   const [numberOfPostsFromBackend, setNumberOfPostsFromBackend] = useState(0);
 
-  const [page, setPage] = useState(1);
-
-  const numberOfPages = Math.ceil(
-    numberOfPostsFromBackend / DEFAULT_NUMBER_OF_POSTS
-  );
+  const numberOfPages = Math.ceil(numberOfPostsFromBackend / perPage);
 
   const pages = Array.from({ length: numberOfPages }, (_, index) => {
     return index + 1;
@@ -39,8 +35,8 @@ export function PostList() {
 
       // 2 => 5:9
       // 3 => 10:14
-      const startIndex = DEFAULT_NUMBER_OF_POSTS * (page - 1);
-      const endIndex = DEFAULT_NUMBER_OF_POSTS * page;
+      const startIndex = perPage * (page - 1);
+      const endIndex = perPage * page;
 
       const slicedPosts = posts.slice(startIndex, endIndex);
       setPosts(slicedPosts);
@@ -54,8 +50,8 @@ export function PostList() {
     const posts = await fetchPosts();
     setNumberOfPostsFromBackend(posts.length);
 
-    const startIndex = DEFAULT_NUMBER_OF_POSTS * (pageNumber - 1);
-    const endIndex = DEFAULT_NUMBER_OF_POSTS * pageNumber;
+    const startIndex = perPage * (pageNumber - 1);
+    const endIndex = perPage * pageNumber;
 
     const slicedPosts = posts.slice(startIndex, endIndex);
 
@@ -108,14 +104,7 @@ export function PostList() {
           );
         })}
 
-        <div>
-          <label htmlFor="per_page">Per Page</label>
-          <select name="per_page" id="per_page">
-            <option>5</option>
-            <option>10</option>
-            <option>20</option>
-          </select>
-        </div>
+        <PerPageSelector />
       </div>
 
       <GlobalTextPostList />
