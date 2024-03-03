@@ -5,6 +5,8 @@ import { PostDetail } from "./components/PostDetail";
 import { PostList } from "./components/PostList";
 import { TodosList } from "./components/TodosList";
 import { PostPaginationProvider } from "./store/pagination-posts";
+import { ProfileMainComponent } from "./components/Profile/ProfileMainComponent";
+import { UserCtxProvider } from "./store/user-context";
 
 const router = createBrowserRouter([
   {
@@ -44,6 +46,14 @@ const router = createBrowserRouter([
   {
     path: "/posts/:postId",
     element: <PostDetail />,
+  },
+  {
+    path: "/profile",
+    element: (
+      <UserCtxProvider>
+        <ProfileMainComponent />
+      </UserCtxProvider>
+    ),
   },
 ]);
 
