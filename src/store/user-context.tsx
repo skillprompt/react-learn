@@ -2,10 +2,12 @@ import { createContext, useContext, useEffect, useState } from "react";
 
 type TUserCtx = {
   username: string;
+  handleUserNameChange: (name: string) => void;
 };
 
 const UserCtx = createContext<TUserCtx>({
   username: "",
+  handleUserNameChange: () => {},
 });
 
 export function UserCtxProvider({ children }: { children: React.ReactNode }) {
@@ -20,6 +22,9 @@ export function UserCtxProvider({ children }: { children: React.ReactNode }) {
     <UserCtx.Provider
       value={{
         username,
+        handleUserNameChange: (name) => {
+          setUserName(name);
+        },
       }}
     >
       {children}

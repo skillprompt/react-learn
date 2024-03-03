@@ -8,9 +8,14 @@ export function ProfileFooter() {
     <div style={{ border: "1px solid black" }}>
       <h1>Footer</h1>
 
-      <select>
-        <option>{loggedInUser}</option>
-        <option>Shyam</option>
+      <select
+        onChange={(event) => {
+          const value = event.target.value;
+          ctxOutput.handleUserNameChange(value);
+        }}
+      >
+        <option selected={"Shyam" === loggedInUser}>Shyam</option>
+        <option selected={"Ram" === loggedInUser}>Ram</option>
       </select>
     </div>
   );
