@@ -7,6 +7,7 @@ import { TodosList } from "./components/TodosList";
 import { PostPaginationProvider } from "./store/pagination-posts";
 import { ProfileMainComponent } from "./components/Profile/ProfileMainComponent";
 import { UserCtxProvider } from "./store/user-context";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const router = createBrowserRouter([
   {
@@ -57,8 +58,14 @@ const router = createBrowserRouter([
   },
 ]);
 
+const queryClient = new QueryClient();
+
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
+  );
 }
 
 export default App;

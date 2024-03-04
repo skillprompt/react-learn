@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getPostById } from "../data/fetch-post-by-id";
 import { TComment, TPost } from "../types";
-import { fetchComments } from "../data/fetch-comments";
+import { useQuery } from "@tanstack/react-query";
 
 export function PostDetail() {
   const params = useParams();
@@ -25,7 +25,41 @@ function Post({
   post: TPost | null;
   setPost: React.Dispatch<React.SetStateAction<TPost | null>>;
 }) {
-  const [comments, setComments] = useState<TComment[]>([]);
+  const { data, error, isLoading } = useQuery<TComment[]>({
+    queryKey: ["getComments", postId],
+    queryFn: async () => {
+      // // throw new Error("failed fetching...");
+      // return new Promise((resolve, reject) => {
+      //   setTimeout(() => {
+      //     // resolve({
+      //     //   comments: [],
+      //     // });
+      //     reject({
+      //       message: "hello",
+      //     });
+      //   }, 2000);
+      // });
+
+      try {
+        const response = await fetch(
+          `https://jsonplaceholder.typicode.com/comments?postId=${postId}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        // parse the response so that we can get data
+        const data = await response.json();
+        return data;
+      } catch (error) {
+        console.log(error);
+        throw new Error("Failed to fetch from server");
+      }
+    },
+  });
 
   useEffect(() => {
     async function fetchPost() {
@@ -36,13 +70,13 @@ function Post({
     fetchPost();
   }, [postId]);
 
-  useEffect(() => {
-    async function fetchCommentsFn() {
-      const comments = await fetchComments(postId);
-      setComments(comments);
-    }
-    fetchCommentsFn();
-  }, []);
+  if (isLoading) {
+    return <p>Comment Loading...</p>;
+  }
+
+  if (error) {
+    return <p>Something went wrong. {JSON.stringify(error)}</p>;
+  }
 
   return (
     <div>
@@ -52,8 +86,7 @@ function Post({
       </div>
       <div>
         <h3>Comments</h3>
-
-        {comments.map((comment) => {
+        {data?.map((comment) => {
           return (
             <div key={comment.id}>
               <h4>{comment.email}</h4>
